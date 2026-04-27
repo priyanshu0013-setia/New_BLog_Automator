@@ -680,6 +680,7 @@ export const getRegenerateArticleMutationOptions = <
     { id: number }
   > = (props) => {
     const { id } = props ?? {};
+
     return regenerateArticle(id, requestOptions);
   };
 

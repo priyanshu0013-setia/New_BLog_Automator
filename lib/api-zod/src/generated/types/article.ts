@@ -6,6 +6,7 @@
  * OpenAPI spec version: 0.1.0
  */
 import type { ArticleStatus } from "./articleStatus";
+import type { ArticleVerifiedSourcesItem } from "./articleVerifiedSourcesItem";
 
 export interface Article {
   id: number;
@@ -24,15 +25,15 @@ export interface Article {
   wordCountTarget: number;
   /** @nullable */
   wordCountActual?: number | null;
-  wordCountOutOfBand: boolean;
+  wordCountOutOfBand?: boolean;
   /** @nullable */
-  verifiedSources?: Array<{ url: string; title: string; snippet: string; publishedDate?: string; domain: string }> | null;
-  citationCount: number;
-  unverifiedCitationsRemoved: number;
+  verifiedSources?: ArticleVerifiedSourcesItem[] | null;
+  citationCount?: number;
+  unverifiedCitationsRemoved?: number;
   status: ArticleStatus;
   /** @nullable */
   zeroGptScore?: number | null;
-  humanizationFailed: boolean;
+  humanizationFailed?: boolean;
   /** @nullable */
   copyleaksScore?: number | null;
   /** @nullable */
