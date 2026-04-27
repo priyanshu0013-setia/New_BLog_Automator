@@ -34,16 +34,20 @@ export const ListArticlesResponseItem = zod.object({
   referenceInput: zod.string().nullish(),
   wordCountTarget: zod.number(),
   wordCountActual: zod.number().nullish(),
-  wordCountOutOfBand: zod.boolean(),
-  verifiedSources: zod.array(zod.object({
-    url: zod.string(),
-    title: zod.string(),
-    snippet: zod.string(),
-    publishedDate: zod.string().optional(),
-    domain: zod.string(),
-  })).nullish(),
-  citationCount: zod.number(),
-  unverifiedCitationsRemoved: zod.number(),
+  wordCountOutOfBand: zod.boolean().optional(),
+  verifiedSources: zod
+    .array(
+      zod.object({
+        url: zod.string().optional(),
+        title: zod.string().optional(),
+        snippet: zod.string().optional(),
+        publishedDate: zod.string().optional(),
+        domain: zod.string().optional(),
+      }),
+    )
+    .nullish(),
+  citationCount: zod.number().optional(),
+  unverifiedCitationsRemoved: zod.number().optional(),
   status: zod.enum([
     "queued",
     "researching",
@@ -57,7 +61,7 @@ export const ListArticlesResponseItem = zod.object({
     "flagged",
   ]),
   zeroGptScore: zod.number().nullish(),
-  humanizationFailed: zod.boolean(),
+  humanizationFailed: zod.boolean().optional(),
   copyleaksScore: zod.number().nullish(),
   burstinessScore: zod.number().nullish(),
   lexicalFingerprintScore: zod.number().nullish(),
@@ -104,6 +108,7 @@ export const CreateArticlesBatchBody = zod.object({
       primaryKeyword: zod.string(),
       secondaryKeywords: zod.string().optional(),
       targetAudience: zod.string().optional(),
+      tone: zod.string().optional(),
       referenceInput: zod.string().optional(),
       wordCountTarget: zod.number(),
       createdBy: zod.string().optional(),
@@ -129,16 +134,20 @@ export const GetArticleResponse = zod.object({
   referenceInput: zod.string().nullish(),
   wordCountTarget: zod.number(),
   wordCountActual: zod.number().nullish(),
-  wordCountOutOfBand: zod.boolean(),
-  verifiedSources: zod.array(zod.object({
-    url: zod.string(),
-    title: zod.string(),
-    snippet: zod.string(),
-    publishedDate: zod.string().optional(),
-    domain: zod.string(),
-  })).nullish(),
-  citationCount: zod.number(),
-  unverifiedCitationsRemoved: zod.number(),
+  wordCountOutOfBand: zod.boolean().optional(),
+  verifiedSources: zod
+    .array(
+      zod.object({
+        url: zod.string().optional(),
+        title: zod.string().optional(),
+        snippet: zod.string().optional(),
+        publishedDate: zod.string().optional(),
+        domain: zod.string().optional(),
+      }),
+    )
+    .nullish(),
+  citationCount: zod.number().optional(),
+  unverifiedCitationsRemoved: zod.number().optional(),
   status: zod.enum([
     "queued",
     "researching",
@@ -152,7 +161,7 @@ export const GetArticleResponse = zod.object({
     "flagged",
   ]),
   zeroGptScore: zod.number().nullish(),
-  humanizationFailed: zod.boolean(),
+  humanizationFailed: zod.boolean().optional(),
   copyleaksScore: zod.number().nullish(),
   burstinessScore: zod.number().nullish(),
   lexicalFingerprintScore: zod.number().nullish(),
@@ -199,16 +208,20 @@ export const RetryArticleResponse = zod.object({
   referenceInput: zod.string().nullish(),
   wordCountTarget: zod.number(),
   wordCountActual: zod.number().nullish(),
-  wordCountOutOfBand: zod.boolean(),
-  verifiedSources: zod.array(zod.object({
-    url: zod.string(),
-    title: zod.string(),
-    snippet: zod.string(),
-    publishedDate: zod.string().optional(),
-    domain: zod.string(),
-  })).nullish(),
-  citationCount: zod.number(),
-  unverifiedCitationsRemoved: zod.number(),
+  wordCountOutOfBand: zod.boolean().optional(),
+  verifiedSources: zod
+    .array(
+      zod.object({
+        url: zod.string().optional(),
+        title: zod.string().optional(),
+        snippet: zod.string().optional(),
+        publishedDate: zod.string().optional(),
+        domain: zod.string().optional(),
+      }),
+    )
+    .nullish(),
+  citationCount: zod.number().optional(),
+  unverifiedCitationsRemoved: zod.number().optional(),
   status: zod.enum([
     "queued",
     "researching",
@@ -222,7 +235,7 @@ export const RetryArticleResponse = zod.object({
     "flagged",
   ]),
   zeroGptScore: zod.number().nullish(),
-  humanizationFailed: zod.boolean(),
+  humanizationFailed: zod.boolean().optional(),
   copyleaksScore: zod.number().nullish(),
   burstinessScore: zod.number().nullish(),
   lexicalFingerprintScore: zod.number().nullish(),
@@ -242,6 +255,13 @@ export const RetryArticleResponse = zod.object({
   articleContent: zod.string().nullish(),
   createdAt: zod.coerce.date(),
   completedAt: zod.coerce.date().nullish(),
+});
+
+/**
+ * @summary Regenerate an article with the same inputs (creates a new article record)
+ */
+export const RegenerateArticleParams = zod.object({
+  id: zod.coerce.number(),
 });
 
 /**
@@ -289,16 +309,20 @@ export const GetActiveArticlesResponseItem = zod.object({
   referenceInput: zod.string().nullish(),
   wordCountTarget: zod.number(),
   wordCountActual: zod.number().nullish(),
-  wordCountOutOfBand: zod.boolean(),
-  verifiedSources: zod.array(zod.object({
-    url: zod.string(),
-    title: zod.string(),
-    snippet: zod.string(),
-    publishedDate: zod.string().optional(),
-    domain: zod.string(),
-  })).nullish(),
-  citationCount: zod.number(),
-  unverifiedCitationsRemoved: zod.number(),
+  wordCountOutOfBand: zod.boolean().optional(),
+  verifiedSources: zod
+    .array(
+      zod.object({
+        url: zod.string().optional(),
+        title: zod.string().optional(),
+        snippet: zod.string().optional(),
+        publishedDate: zod.string().optional(),
+        domain: zod.string().optional(),
+      }),
+    )
+    .nullish(),
+  citationCount: zod.number().optional(),
+  unverifiedCitationsRemoved: zod.number().optional(),
   status: zod.enum([
     "queued",
     "researching",
@@ -312,7 +336,7 @@ export const GetActiveArticlesResponseItem = zod.object({
     "flagged",
   ]),
   zeroGptScore: zod.number().nullish(),
-  humanizationFailed: zod.boolean(),
+  humanizationFailed: zod.boolean().optional(),
   copyleaksScore: zod.number().nullish(),
   burstinessScore: zod.number().nullish(),
   lexicalFingerprintScore: zod.number().nullish(),

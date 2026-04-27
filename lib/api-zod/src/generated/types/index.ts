@@ -8,6 +8,7 @@
 
 export * from "./article";
 export * from "./articleStatus";
+export * from "./articleVerifiedSourcesItem";
 export * from "./batchCreateBody";
 export * from "./createArticleBody";
 export * from "./dashboardStats";

@@ -13,6 +13,14 @@ export interface ErrorResponse {
   error: string;
 }
 
+export type ArticleVerifiedSourcesItem = {
+  url?: string;
+  title?: string;
+  snippet?: string;
+  publishedDate?: string;
+  domain?: string;
+};
+
 export type ArticleStatus = (typeof ArticleStatus)[keyof typeof ArticleStatus];
 
 export const ArticleStatus = {
@@ -45,15 +53,15 @@ export interface Article {
   wordCountTarget: number;
   /** @nullable */
   wordCountActual?: number | null;
-  wordCountOutOfBand: boolean;
+  wordCountOutOfBand?: boolean;
   /** @nullable */
-  verifiedSources?: Array<{ url: string; title: string; snippet: string; publishedDate?: string; domain: string }> | null;
-  citationCount: number;
-  unverifiedCitationsRemoved: number;
+  verifiedSources?: ArticleVerifiedSourcesItem[] | null;
+  citationCount?: number;
+  unverifiedCitationsRemoved?: number;
   status: ArticleStatus;
   /** @nullable */
   zeroGptScore?: number | null;
-  humanizationFailed: boolean;
+  humanizationFailed?: boolean;
   /** @nullable */
   copyleaksScore?: number | null;
   /** @nullable */
@@ -96,6 +104,7 @@ export interface CreateArticleBody {
   primaryKeyword: string;
   secondaryKeywords?: string;
   targetAudience?: string;
+  tone?: string;
   referenceInput?: string;
   wordCountTarget: number;
   createdBy?: string;
