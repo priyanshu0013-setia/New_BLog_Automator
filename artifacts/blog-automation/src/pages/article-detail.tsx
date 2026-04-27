@@ -218,7 +218,7 @@ export default function ArticleDetail() {
       )}
 
       {/* Citation cleanup notice — only shown when something got stripped */}
-      {article.unverifiedCitationsRemoved > 0 && (
+      {(article.unverifiedCitationsRemoved ?? 0) > 0 && (
         <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900 rounded-lg p-4 flex gap-3">
           <AlertCircle className="h-4 w-4 text-blue-600 shrink-0 mt-0.5" />
           <div className="text-sm text-blue-900 dark:text-blue-200">
@@ -337,7 +337,7 @@ export default function ArticleDetail() {
                 <p className="text-sm font-medium text-foreground">{article.verifiedSources.length} verified source{article.verifiedSources.length === 1 ? "" : "s"}</p>
                 <p className="text-xs text-muted-foreground">
                   {article.citationCount} cited in article
-                  {article.unverifiedCitationsRemoved > 0 && ` · ${article.unverifiedCitationsRemoved} unverified removed`}
+                  {(article.unverifiedCitationsRemoved ?? 0) > 0 && ` · ${article.unverifiedCitationsRemoved} unverified removed`}
                 </p>
               </div>
               <ol className="space-y-3">
